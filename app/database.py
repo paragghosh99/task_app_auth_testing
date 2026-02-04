@@ -1,8 +1,10 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+import os
 
 # 1. Where the database lives
-DATABASE_URL = "sqlite:///./tasks.db"
+DB_PATH = os.getenv("DB_PATH", "./tasks.db")
+DATABASE_URL = f"sqlite:///{DB_PATH}"
 
 # 2. Engine = road (created ONCE)
 engine = create_engine(
