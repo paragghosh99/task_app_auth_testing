@@ -1,0 +1,27 @@
+# Git & VCS
+.git
+.gitignore
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Testing artifacts
+.pytest_cache/
+
+# Virtual environments (never needed in images)
+venv/
+.venv/
+
+# Environment variables & secrets
+.env
+.env/
+.env.*
+
+# Local databases (don’t bake data into images)
+*.db
+
+# OS / editor junk (optional but clean)
+.DS_Store
+.vscode/
+.idea/
