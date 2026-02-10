@@ -28,14 +28,14 @@ That’s what this project focuses on.
 
 ## Table of Contents
 
-1. High-Level Architecture  
-2. Authentication Flow  
-3. APIs You Can Call  
-4. Building & Running Locally  
-5. Docker: One Image, Many Environments  
-6. CI & Deployment  
-7. Testing Strategy  
-8. Lessons Learned & Next Steps  
+1. [High-Level Architecture](#high-level-architecture)
+2. [Authentication Flow](#authentication-flow)
+3. [APIs You Can Call](#apis-you-can-call)
+4. [Building & Running Locally](#building--running-locally)
+5. [Docker: One Image, Many Environments](#docker-one-image-many-environments)
+6. [CI & Deployment](#ci--deployment)
+7. [Testing Strategy](#testing-strategy)
+8. [Lessons Learned & Next Steps](#lessons-learned--next-steps)
 
 ---
 
@@ -110,7 +110,7 @@ uvicorn app.main:app --reload
 
 Visit:
 
-API Docs → http://localhost:8000/docs
+API Docs → `http://localhost:8000/docs`
 
 ## Docker: One Image, Many Environments
 Docker guarantees the same behavior everywhere.
@@ -141,17 +141,15 @@ Every push triggers GitHub Actions:
 
 
 ## Testing Strategy
+
 Testing focuses on high-value coverage:
 
-Integration tests for:
+- Integration tests for:
+  - Authentication flow
+  - Task CRUD behavior
+- Unit tests will be added as pure business logic grows
+- All tests are executed using Pytest
 
-Authentication flow
-
-Task CRUD behavior
-
-Unit tests will be added as pure business logic grows
-
-All tests are executed using Pytest.
 
 ## Lessons Learned & Next Steps
 ### What This Project Teaches
@@ -162,15 +160,17 @@ All tests are executed using Pytest.
 
 
 ### Next Improvements
-Replace SQLite with PostgreSQL
 
-Add migrations
+- Replace SQLite with PostgreSQL
+- Add migrations
+- Introduce role-based access control (RBAC)
 
-Introduce role-based access control (RBAC)
 
 ## Try It Live
-Base URL: https://task-app-nstq.onrender.com/
 
-Interactive Docs: /docs
+- **Base URL:** https://task-app-nstq.onrender.com/
+- **Interactive Docs:** https://task-app-nstq.onrender.com/docs
 
-Made with ❤️ by Parag · Hosted on GitHub Pages
+---
+
+_Made with ❤️ by Parag · Hosted on GitHub Pages_
