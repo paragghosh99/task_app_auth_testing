@@ -4,9 +4,8 @@ title: FastAPI Task API — A Journey From Code to Cloud
 hero_title: FastAPI Task API
 hero_subtitle: From Local Code to Cloud Deployment
 hero_meta: Built with FastAPI · Docker · GitHub Actions
-hero_image: {{ site.baseurl }}/assets/hero.jpg
+hero_image: "{{ site.baseurl }}/assets/hero.jpg"
 ---
-
 
 # FastAPI Task API — A Journey From Code to Cloud
 
