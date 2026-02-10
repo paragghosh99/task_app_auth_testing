@@ -52,10 +52,63 @@
       color: #6a737d;
       font-size: 0.9em;
     }
+	
+	.hero {
+	  height: 70vh;
+	  background-size: cover;
+	  background-position: center;
+	  position: relative;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	}
+
+	.hero-overlay {
+	  background: rgba(0, 0, 0, 0.55);
+	  padding: 3rem;
+	  text-align: center;
+	  color: white;
+	  max-width: 900px;
+	}
+
+	.hero h1 {
+	  font-size: 3rem;
+	  margin-bottom: 1rem;
+	}
+
+	.hero-subtitle {
+	  font-size: 1.4rem;
+	  margin-bottom: 0.5rem;
+	}
+
+	.hero-meta {
+	  font-size: 0.95rem;
+	  opacity: 0.85;
+	}
+
+	main {
+	  margin-top: 3rem;
+	}
+
   </style>
 </head>
 
 <body>
+
+{% if page.hero_image %}
+  <section class="hero" style="background-image: url('{{ page.hero_image }}');">
+    <div class="hero-overlay">
+      <h1>{{ page.hero_title }}</h1>
+      <p class="hero-subtitle">{{ page.hero_subtitle }}</p>
+      <p class="hero-meta">{{ page.hero_meta }}</p>
+    </div>
+  </section>
+{% endif %}
+
+<main>
   {{ content }}
+</main>
+
 </body>
+
 </html>
