@@ -3,13 +3,6 @@ layout: default
 title: FastAPI Task API — Story & Guide
 ---
 
-<style>
-body { font-family: Arial, sans-serif; line-height:1.6; }
-h1, h2, h3 { border-bottom: 2px solid #ddd; padding-bottom: 0.2em; }
-code { background: #f7f7f7; padding: 0.2em 0.4em; border-radius: 4px; }
-pre { background: #f7f7f7; padding: 0.8em; border-radius: 6px; overflow-x: auto;}
-</style>
-
 # FastAPI Task API — A Journey From Code to Cloud
 
 This page walks you through  
