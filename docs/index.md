@@ -12,15 +12,15 @@ pre { background: #f7f7f7; padding: 0.8em; border-radius: 6px; overflow-x: auto;
 
 # FastAPI Task API — A Journey From Code to Cloud
 
-This page walks you through:  
-**what it is**, **why it matters**, and **how it really works** — just like a proper software story should.
+This page walks you through  
+**what it is**, **why it matters**, and **how it actually works** — end to end.
 
 ---
 
 ## What Problem Are We Solving?
 
 Most tutorials stop at “here’s CRUD.”  
-But real software must:
+Real software must also:
 
 1. Authenticate users
 2. Run consistently across machines
@@ -28,7 +28,7 @@ But real software must:
 4. Pass CI checks
 5. Deploy to the cloud
 
-That’s what this project does.
+That’s what this project focuses on.
 
 ---
 
@@ -39,7 +39,7 @@ That’s what this project does.
 3. [APIs You Can Call](#apis-you-can-call)  
 4. [Building & Running Locally](#building--running-locally)  
 5. [Docker: One Image, Many Environments](#docker-one-image-many-environments)  
-6. [CI & Deployment with GitHub Actions + Render](#ci--deployment-with-github-actions--render)  
+6. [CI & Deployment](#ci--deployment)  
 7. [Testing Strategy](#testing-strategy)  
 8. [Lessons Learned & Next Steps](#lessons-learned--next-steps)
 
@@ -47,54 +47,58 @@ That’s what this project does.
 
 ## High-Level Architecture
 
-At its core, the FastAPI Task API has **three pillars**:
+At its core, the FastAPI Task API has three pillars:
 
-1. **HTTP API** — written with FastAPI  
-2. **Security** — JWT for protected endpoints  
-3. **Infrastructure** — Docker, CI, Deployment
+- **HTTP API** — FastAPI handles routing and validation  
+- **Security** — JWT protects user-specific data  
+- **Infrastructure** — Docker, CI, and cloud deployment  
 
 <div style="text-align: center;">
-<img src="assets/architecture.png" alt="Architecture diagram" width="600px">
+  <img src="assets/architecture.png" alt="Architecture diagram" width="600px">
 </div>
 
-Requests come in → Auth guard checks user → Task logic runs → DB responds → JSON out.
+**Request lifecycle:**
+
+Client → Auth guard → Business logic → Database → JSON response
 
 ---
 
 ## Authentication Flow
 
-The API uses **JWT (JSON Web Tokens)** to prove identity.
+Authentication is handled using **JWT (JSON Web Tokens)**.
+
+### Login
+
+- Client sends credentials
+- Server validates them
+- A JWT is issued
+
+### Token Contains
+
+- `sub` — User ID  
+- `exp` — Expiration timestamp  
+
+### Authenticated Requests
 
 ```text
-Client        Server
-  |   Login   |
-  | --------> |
-  |   200 OK  |
-  | <======== |  JWT
-  |           |
-Auth required endpoint
-  | Bearer JWT |
-  | ----------> |
-  | 200 OK     |
-  | <----------|
-Token contains:
-
-sub — The user’s ID
-
-exp — Expiration
+Authorization: Bearer <token>
+Token is verified → user identity extracted → request proceeds.
 
 APIs You Can Call
 Public
-POST /register  → Create a user
-POST /login     → Get a JWT
-Protected
-GET /tasks
-POST /tasks
-PUT /tasks/{id}
-DELETE /tasks/{id}
-Pass the JWT as:
+POST /register → Create a new user
 
-Authorization: Bearer <token>
+POST /login → Authenticate and receive JWT
+
+Protected (JWT required)
+GET /tasks
+
+POST /tasks
+
+PUT /tasks/{id}
+
+DELETE /tasks/{id}
+
 Building & Running Locally
 Install dependencies:
 
@@ -104,63 +108,63 @@ Start the server:
 uvicorn app.main:app --reload
 Visit:
 
-API docs → http://localhost:8000/docs
+API Docs → http://localhost:8000/docs
 
 Docker: One Image, Many Environments
-Docker ensures your code works everywhere.
+Docker guarantees the same behavior everywhere.
 
 Build the image:
 
 docker build -t task_api .
-Run it:
+Run the container:
 
 docker run -p 8000:8000 task_api
-Notice: same image locally and in production.
+Same image locally.
+Same image in production.
+No “works on my machine” excuses.
 
-CI & Deployment with GitHub Actions + Render
-Every push:
+CI & Deployment
+Every push triggers GitHub Actions:
 
-Builds a fresh Docker image
+Builds the Docker image from scratch
 
 Runs tests
 
 Blocks deployment on failure
 
-This gives confidence before release.
+Only validated builds reach production.
 
 Testing Strategy
-We favor high-value tests:
+Testing focuses on high-value coverage:
 
 Integration tests for:
 
-Auth flow
+Authentication flow
 
-CRUD behavior
+Task CRUD behavior
 
-Unit tests will come as logic grows
+Unit tests will be added as pure business logic grows
 
-Pytest drives all checks.
+All tests are executed using Pytest.
 
 Lessons Learned & Next Steps
-This project teaches:
-
+What This Project Teaches
 Docker builds must be deterministic
 
 JWT must be validated on every request
 
-SQLite inside Docker is ephemeral — intentional for learning
+SQLite inside containers is ephemeral by nature
 
-Next steps:
-
+Next Improvements
 Replace SQLite with PostgreSQL
 
-Add real migrations
+Add migrations
 
-Add RBAC
+Introduce role-based access control (RBAC)
 
 Try It Live
 Base URL: https://task-app-nstq.onrender.com/
 
-Interactive docs: /docs
+Interactive Docs: /docs
 
 <footer style="text-align:center; margin-top:30px;"> Made with ❤️ by Parag Hosted on GitHub Pages </footer> ```
