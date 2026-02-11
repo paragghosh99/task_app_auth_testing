@@ -2,7 +2,8 @@ from sqlalchemy.orm import Session
 from app.models import User
 from app.core.security import hash_password
 from app.schemas import UserCreate
-from app.services.db_utils import commit_or_500
+from sqlalchemy.exc import IntegrityError
+from fastapi import HTTPException
 
 
 def create_user(db: Session, user_in: UserCreate) -> User:
@@ -14,6 +15,13 @@ def create_user(db: Session, user_in: UserCreate) -> User:
     )
 
     db.add(user)
-    commit_or_500(db)
+    try:
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise HTTPException(status_code=400, detail="Email already registered")
+    except Exception:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Database error")
     db.refresh(user)
     return user
